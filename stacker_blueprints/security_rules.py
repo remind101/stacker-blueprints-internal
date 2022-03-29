@@ -60,8 +60,8 @@ class Rules(Blueprint):
     def create_security_rules(self):
         t = self.template
         variables = self.get_variables()
-        for rule_type, rule_class in CLASS_MAP.items():
-            for rule_title, rule_attrs in variables[rule_type].items():
+        for rule_type, rule_class in list(CLASS_MAP.items()):
+            for rule_title, rule_attrs in list(variables[rule_type].items()):
                 t.add_resource(rule_class.from_dict(rule_title, rule_attrs))
 
     def create_template(self):

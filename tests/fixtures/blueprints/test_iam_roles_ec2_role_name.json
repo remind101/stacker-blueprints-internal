@@ -3,35 +3,35 @@
         "InstanceProfileArn": {
             "Value": {
                 "Fn::GetAtt": [
-                    "myRoleInstanceProfile", 
+                    "myRoleInstanceProfile",
                     "Arn"
                 ]
             }
-        }, 
+        },
         "InstanceProfileName": {
             "Value": {
                 "Ref": "myRoleInstanceProfile"
             }
-        }, 
+        },
         "PolicyName": {
             "Value": {
                 "Ref": "myRolePolicy"
             }
-        }, 
+        },
         "myRoleRoleArn": {
             "Value": {
                 "Fn::GetAtt": [
-                    "myRole", 
+                    "myRole",
                     "Arn"
                 ]
             }
-        }, 
+        },
         "myRoleRoleName": {
             "Value": {
                 "Ref": "myRole"
             }
         }
-    }, 
+    },
     "Resources": {
         "myRole": {
             "Properties": {
@@ -40,73 +40,73 @@
                         {
                             "Action": [
                                 "sts:AssumeRole"
-                            ], 
-                            "Effect": "Allow", 
+                            ],
+                            "Effect": "Allow",
                             "Principal": {
                                 "Service": [
                                     "ec2.amazonaws.com"
                                 ]
                             }
                         }
-                    ], 
+                    ],
                     "Version": "2012-10-17"
-                }, 
+                },
                 "ManagedPolicyArns": [
                     "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
-                ], 
+                ],
                 "Path": "/"
-            }, 
+            },
             "Type": "AWS::IAM::Role"
-        }, 
+        },
         "myRoleInstanceProfile": {
             "Properties": {
-                "Path": "/", 
+                "Path": "/",
                 "Roles": [
                     {
                         "Ref": "myRole"
                     }
                 ]
-            }, 
+            },
             "Type": "AWS::IAM::InstanceProfile"
-        }, 
+        },
         "myRolePolicy": {
             "Properties": {
                 "PolicyDocument": {
                     "Statement": [
                         {
                             "Action": [
-                                "logs:CreateLogGroup", 
-                                "logs:CreateLogStream", 
+                                "logs:CreateLogGroup",
+                                "logs:CreateLogStream",
                                 "logs:PutLogEvents"
-                            ], 
-                            "Effect": "Allow", 
+                            ],
+                            "Effect": "Allow",
                             "Resource": "arn:aws:logs:*:*:*"
-                        }, 
+                        },
                         {
                             "Action": [
                                 "ecr:GetAuthorizationToken"
-                            ], 
-                            "Effect": "Allow", 
+                            ],
+                            "Effect": "Allow",
                             "Resource": [
                                 "*"
                             ]
                         }
                     ]
-                }, 
+                },
                 "PolicyName": {
                     "Fn::Sub": [
-                        "${AWS::StackName}-${Name}-policy", 
+                        "${AWS::StackName}-${Name}-policy",
                         {
                             "Name": "myRole"
                         }
                     ]
-                }, 
+                },
                 "Roles": [
                     {
                         "Ref": "myRole"
                     }
                 ]
-            }, 
+            },
             "Type": "AWS::IAM::Policy"
         }
     }

@@ -44,7 +44,7 @@
                                         "arn:aws:kinesis:${AWS::Region}:${AWS::AccountId}:stream/${Stream}",
                                         {
                                             "Stream": {
-                                                "Ref": "Stream2"
+                                                "Ref": "Stream1"
                                             }
                                         }
                                     ]
@@ -54,7 +54,7 @@
                                         "arn:aws:kinesis:${AWS::Region}:${AWS::AccountId}:stream/${Stream}",
                                         {
                                             "Stream": {
-                                                "Ref": "Stream1"
+                                                "Ref": "Stream2"
                                             }
                                         }
                                     ]
@@ -98,7 +98,7 @@
                                         "arn:aws:kinesis:${AWS::Region}:${AWS::AccountId}:stream/${Stream}",
                                         {
                                             "Stream": {
-                                                "Ref": "Stream2"
+                                                "Ref": "Stream1"
                                             }
                                         }
                                     ]
@@ -108,7 +108,7 @@
                                         "arn:aws:kinesis:${AWS::Region}:${AWS::AccountId}:stream/${Stream}",
                                         {
                                             "Stream": {
-                                                "Ref": "Stream1"
+                                                "Ref": "Stream2"
                                             }
                                         }
                                     ]
@@ -136,7 +136,7 @@
                                         "arn:aws:kinesis:${AWS::Region}:${AWS::AccountId}:stream/${Stream}",
                                         {
                                             "Stream": {
-                                                "Ref": "Stream2"
+                                                "Ref": "Stream1"
                                             }
                                         }
                                     ]
@@ -146,7 +146,7 @@
                                         "arn:aws:kinesis:${AWS::Region}:${AWS::AccountId}:stream/${Stream}",
                                         {
                                             "Stream": {
-                                                "Ref": "Stream1"
+                                                "Ref": "Stream2"
                                             }
                                         }
                                     ]
@@ -184,4 +184,3 @@
         }
     }
 }
-

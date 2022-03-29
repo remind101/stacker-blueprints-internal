@@ -1,5 +1,5 @@
-# library/python:2-alpine
-FROM library/python@sha256:724d0540eb56ffaa6dd770aa13c3bc7dfc829dec561d87cb36b2f5b9ff8a760a
+# library/python:3-alpine
+FROM library/python@sha256:ebcb1714a8f5abbf0b03262e518ca0453131cf720ea0a0f85e9bf3bfd7c1d53d
 
 RUN apk --update add bash
 RUN pip install flake8

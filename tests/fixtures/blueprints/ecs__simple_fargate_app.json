@@ -3,56 +3,56 @@
         "RoleArn": {
             "Value": {
                 "Fn::GetAtt": [
-                    "Role", 
+                    "Role",
                     "Arn"
                 ]
             }
-        }, 
+        },
         "RoleId": {
             "Value": {
                 "Fn::GetAtt": [
-                    "Role", 
+                    "Role",
                     "RoleId"
                 ]
             }
-        }, 
+        },
         "RoleName": {
             "Value": {
                 "Ref": "Role"
             }
-        }, 
+        },
         "ServiceArn": {
             "Value": {
                 "Ref": "Service"
             }
-        }, 
+        },
         "ServiceName": {
             "Value": {
                 "Fn::GetAtt": [
-                    "Service", 
+                    "Service",
                     "Name"
                 ]
             }
-        }, 
+        },
         "TaskDefinitionArn": {
             "Value": {
                 "Ref": "TaskDefinition"
             }
-        }, 
+        },
         "TaskExecutionRoleArn": {
             "Value": {
                 "Fn::GetAtt": [
-                    "TaskExecutionRole", 
+                    "TaskExecutionRole",
                     "Arn"
                 ]
             }
-        }, 
+        },
         "TaskExecutionRoleName": {
             "Value": {
                 "Ref": "TaskExecutionRole"
             }
         }
-    }, 
+    },
     "Resources": {
         "Role": {
             "Properties": {
@@ -61,114 +61,114 @@
                         {
                             "Action": [
                                 "sts:AssumeRole"
-                            ], 
-                            "Effect": "Allow", 
+                            ],
+                            "Effect": "Allow",
                             "Principal": {
                                 "Service": [
                                     "ecs-tasks.amazonaws.com"
                                 ]
                             }
                         }
-                    ], 
+                    ],
                     "Version": "2012-10-17"
-                }, 
+                },
                 "Path": "/"
-            }, 
+            },
             "Type": "AWS::IAM::Role"
-        }, 
+        },
         "Service": {
             "Properties": {
-                "Cluster": "mycluster", 
+                "Cluster": "mycluster",
                 "DeploymentConfiguration": {
                     "Ref": "AWS::NoValue"
-                }, 
-                "DesiredCount": 3, 
+                },
+                "DesiredCount": 3,
                 "HealthCheckGracePeriodSeconds": {
                     "Ref": "AWS::NoValue"
-                }, 
-                "LaunchType": "FARGATE", 
+                },
+                "LaunchType": "FARGATE",
                 "LoadBalancers": {
                     "Ref": "AWS::NoValue"
-                }, 
+                },
                 "NetworkConfiguration": {
                     "AwsvpcConfiguration": {
                         "SecurityGroups": [
                             "sg-abc1234"
-                        ], 
+                        ],
                         "Subnets": [
-                            "net-123456", 
+                            "net-123456",
                             "net-5678910"
                         ]
                     }
-                }, 
+                },
                 "PlacementConstraints": {
                     "Ref": "AWS::NoValue"
-                }, 
+                },
                 "TaskDefinition": {
                     "Ref": "TaskDefinition"
                 }
-            }, 
+            },
             "Type": "AWS::ECS::Service"
-        }, 
+        },
         "TaskDefinition": {
             "Properties": {
                 "ContainerDefinitions": [
                     {
                         "Command": [
-                            "/bin/run", 
+                            "/bin/run",
                             "--args 1"
-                        ], 
-                        "Cpu": 1024, 
+                        ],
+                        "Cpu": 1024,
                         "Environment": [
                             {
-                                "Name": "DATABASE_URL", 
+                                "Name": "DATABASE_URL",
                                 "Value": "sql://fake_db/fake_db"
-                            }, 
+                            },
                             {
-                                "Name": "DEBUG", 
+                                "Name": "DEBUG",
                                 "Value": "false"
                             }
-                        ], 
-                        "Essential": "true", 
-                        "Image": "fake_repo/image:12345", 
+                        ],
+                        "Essential": "true",
+                        "Image": "fake_repo/image:12345",
                         "LogConfiguration": {
-                            "LogDriver": "awslogs", 
+                            "LogDriver": "awslogs",
                             "Options": {
-                                "awslogs-group": "myapp", 
+                                "awslogs-group": "myapp",
                                 "awslogs-region": {
                                     "Ref": "AWS::Region"
-                                }, 
+                                },
                                 "awslogs-stream-prefix": "mytask"
                             }
-                        }, 
-                        "Memory": 2048, 
-                        "Name": "mytask", 
+                        },
+                        "Memory": 2048,
+                        "Name": "mytask",
                         "PortMappings": {
                             "Ref": "AWS::NoValue"
                         }
                     }
-                ], 
-                "Cpu": "1024", 
+                ],
+                "Cpu": "1024",
                 "ExecutionRoleArn": {
                     "Fn::GetAtt": [
-                        "TaskExecutionRole", 
+                        "TaskExecutionRole",
                         "Arn"
                     ]
-                }, 
-                "Memory": "2048", 
-                "NetworkMode": "awsvpc", 
+                },
+                "Memory": "2048",
+                "NetworkMode": "awsvpc",
                 "RequiresCompatibilities": [
                     "FARGATE"
-                ], 
+                ],
                 "TaskRoleArn": {
                     "Fn::GetAtt": [
-                        "Role", 
+                        "Role",
                         "Arn"
                     ]
                 }
-            }, 
+            },
             "Type": "AWS::ECS::TaskDefinition"
-        }, 
+        },
         "TaskExecutionRole": {
             "Properties": {
                 "AssumeRolePolicyDocument": {
@@ -176,20 +176,20 @@
                         {
                             "Action": [
                                 "sts:AssumeRole"
-                            ], 
-                            "Effect": "Allow", 
+                            ],
+                            "Effect": "Allow",
                             "Principal": {
                                 "Service": [
                                     "ecs-tasks.amazonaws.com"
                                 ]
                             }
                         }
-                    ], 
+                    ],
                     "Version": "2012-10-17"
                 }
-            }, 
+            },
             "Type": "AWS::IAM::Role"
-        }, 
+        },
         "TaskExecutionRolePolicy": {
             "Properties": {
                 "PolicyDocument": {
@@ -197,62 +197,62 @@
                         {
                             "Action": [
                                 "ecr:GetAuthorizationToken"
-                            ], 
-                            "Effect": "Allow", 
+                            ],
+                            "Effect": "Allow",
                             "Resource": [
                                 "*"
                             ]
-                        }, 
+                        },
                         {
                             "Action": [
-                                "ecr:BatchCheckLayerAvailability", 
-                                "ecr:GetDownloadUrlForLayer", 
+                                "ecr:BatchCheckLayerAvailability",
+                                "ecr:GetDownloadUrlForLayer",
                                 "ecr:BatchGetImage"
-                            ], 
-                            "Effect": "Allow", 
+                            ],
+                            "Effect": "Allow",
                             "Resource": [
                                 "*"
                             ]
-                        }, 
+                        },
                         {
                             "Action": [
-                                "logs:CreateLogGroup", 
-                                "logs:CreateLogStream", 
+                                "logs:CreateLogGroup",
+                                "logs:CreateLogStream",
                                 "logs:PutLogEvents"
-                            ], 
-                            "Effect": "Allow", 
+                            ],
+                            "Effect": "Allow",
                             "Resource": [
                                 {
                                     "Fn::Join": [
-                                        "", 
+                                        "",
                                         [
-                                            "arn:aws:logs:", 
+                                            "arn:aws:logs:",
                                             {
                                                 "Ref": "AWS::Region"
-                                            }, 
-                                            ":", 
+                                            },
+                                            ":",
                                             {
                                                 "Ref": "AWS::AccountId"
-                                            }, 
-                                            ":log-group:", 
+                                            },
+                                            ":log-group:",
                                             "myapp"
                                         ]
                                     ]
-                                }, 
+                                },
                                 {
                                     "Fn::Join": [
-                                        "", 
+                                        "",
                                         [
-                                            "arn:aws:logs:", 
+                                            "arn:aws:logs:",
                                             {
                                                 "Ref": "AWS::Region"
-                                            }, 
-                                            ":", 
+                                            },
+                                            ":",
                                             {
                                                 "Ref": "AWS::AccountId"
-                                            }, 
-                                            ":log-group:", 
-                                            "myapp", 
+                                            },
+                                            ":log-group:",
+                                            "myapp",
                                             ":*"
                                         ]
                                     ]
@@ -260,16 +260,16 @@
                             ]
                         }
                     ]
-                }, 
+                },
                 "PolicyName": {
                     "Fn::Sub": "${AWS::StackName}-task-exeuction-role-policy"
-                }, 
+                },
                 "Roles": [
                     {
                         "Ref": "TaskExecutionRole"
                     }
                 ]
-            }, 
+            },
             "Type": "AWS::IAM::Policy"
         }
     }

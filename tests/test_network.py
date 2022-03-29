@@ -22,7 +22,7 @@ class TestNetwork(BlueprintTestCase):
         variable_dict = variable_dict or {}
         self.common_variables.update(variable_dict)
 
-        return [Variable(k, v) for k, v in self.common_variables.items()]
+        return [Variable(k, v) for k, v in list(self.common_variables.items())]
 
     def test_network_fail_internet_nat_gateway(self):
         bp = self.create_blueprint("test_network_fail_internet_nat_gateway")

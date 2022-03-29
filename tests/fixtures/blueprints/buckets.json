@@ -3,7 +3,7 @@
         "CycleBucketArn": {
             "Value": {
                 "Fn::Sub": [
-                    "arn:aws:s3:::${Bucket}", 
+                    "arn:aws:s3:::${Bucket}",
                     {
                         "Bucket": {
                             "Ref": "Cycle"
@@ -11,24 +11,24 @@
                     }
                 ]
             }
-        }, 
+        },
         "CycleBucketDomainName": {
             "Value": {
                 "Fn::GetAtt": [
-                    "Cycle", 
+                    "Cycle",
                     "DomainName"
                 ]
             }
-        }, 
+        },
         "CycleBucketId": {
             "Value": {
                 "Ref": "Cycle"
             }
-        }, 
+        },
         "SimpleBucketArn": {
             "Value": {
                 "Fn::Sub": [
-                    "arn:aws:s3:::${Bucket}", 
+                    "arn:aws:s3:::${Bucket}",
                     {
                         "Bucket": {
                             "Ref": "Simple"
@@ -36,35 +36,35 @@
                     }
                 ]
             }
-        }, 
+        },
         "SimpleBucketDomainName": {
             "Value": {
                 "Fn::GetAtt": [
-                    "Simple", 
+                    "Simple",
                     "DomainName"
                 ]
             }
-        }, 
+        },
         "SimpleBucketId": {
             "Value": {
                 "Ref": "Simple"
             }
         }
-    }, 
+    },
     "Resources": {
         "Cycle": {
             "Properties": {
                 "LifecycleConfiguration": {
                     "Rules": [
                         {
-                            "ExpirationInDays": 40, 
+                            "ExpirationInDays": 40,
                             "Status": "Enabled"
                         }
                     ]
                 }
-            }, 
+            },
             "Type": "AWS::S3::Bucket"
-        }, 
+        },
         "ReadPolicy": {
             "Properties": {
                 "PolicyDocument": {
@@ -72,52 +72,52 @@
                         {
                             "Action": [
                                 "s3:ListAllMyBuckets"
-                            ], 
-                            "Effect": "Allow", 
+                            ],
+                            "Effect": "Allow",
                             "Resource": [
                                 "arn:aws:s3:::*"
                             ]
-                        }, 
+                        },
                         {
                             "Action": [
-                                "s3:Get*", 
+                                "s3:Get*",
                                 "s3:List*"
-                            ], 
-                            "Effect": "Allow", 
+                            ],
+                            "Effect": "Allow",
                             "Resource": [
                                 {
                                     "Fn::Sub": [
-                                        "arn:aws:s3:::${Bucket}", 
+                                        "arn:aws:s3:::${Bucket}",
                                         {
                                             "Bucket": {
                                                 "Ref": "Simple"
                                             }
                                         }
                                     ]
-                                }, 
+                                },
                                 {
                                     "Fn::Sub": [
-                                        "arn:aws:s3:::${Bucket}", 
+                                        "arn:aws:s3:::${Bucket}",
                                         {
                                             "Bucket": {
                                                 "Ref": "Cycle"
                                             }
                                         }
                                     ]
-                                }, 
+                                },
                                 {
                                     "Fn::Sub": [
-                                        "arn:aws:s3:::${Bucket}/*", 
+                                        "arn:aws:s3:::${Bucket}/*",
                                         {
                                             "Bucket": {
                                                 "Ref": "Simple"
                                             }
                                         }
                                     ]
-                                }, 
+                                },
                                 {
                                     "Fn::Sub": [
-                                        "arn:aws:s3:::${Bucket}/*", 
+                                        "arn:aws:s3:::${Bucket}/*",
                                         {
                                             "Bucket": {
                                                 "Ref": "Cycle"
@@ -128,51 +128,51 @@
                             ]
                         }
                     ]
-                }, 
+                },
                 "PolicyName": {
                     "Fn::Sub": "${AWS::StackName}ReadPolicy"
-                }, 
+                },
                 "Roles": [
-                    "Role1", 
+                    "Role1",
                     "Role2"
                 ]
-            }, 
+            },
             "Type": "AWS::IAM::Policy"
-        }, 
+        },
         "ReadWritePolicy": {
             "Properties": {
                 "PolicyDocument": {
                     "Statement": [
                         {
                             "Action": [
-                                "s3:GetBucketLocation", 
+                                "s3:GetBucketLocation",
                                 "s3:ListAllMyBuckets"
-                            ], 
-                            "Effect": "Allow", 
+                            ],
+                            "Effect": "Allow",
                             "Resource": [
                                 "arn:aws:s3:::*"
                             ]
-                        }, 
+                        },
                         {
                             "Action": [
-                                "s3:ListBucket", 
+                                "s3:ListBucket",
                                 "s3:GetBucketVersioning"
-                            ], 
-                            "Effect": "Allow", 
+                            ],
+                            "Effect": "Allow",
                             "Resource": [
                                 {
                                     "Fn::Sub": [
-                                        "arn:aws:s3:::${Bucket}", 
+                                        "arn:aws:s3:::${Bucket}",
                                         {
                                             "Bucket": {
                                                 "Ref": "Simple"
                                             }
                                         }
                                     ]
-                                }, 
+                                },
                                 {
                                     "Fn::Sub": [
-                                        "arn:aws:s3:::${Bucket}", 
+                                        "arn:aws:s3:::${Bucket}",
                                         {
                                             "Bucket": {
                                                 "Ref": "Cycle"
@@ -181,31 +181,31 @@
                                     ]
                                 }
                             ]
-                        }, 
+                        },
                         {
                             "Action": [
-                                "s3:GetObject", 
-                                "s3:PutObject", 
-                                "s3:PutObjectAcl", 
-                                "s3:DeleteObject", 
-                                "s3:GetObjectVersion", 
+                                "s3:GetObject",
+                                "s3:PutObject",
+                                "s3:PutObjectAcl",
+                                "s3:DeleteObject",
+                                "s3:GetObjectVersion",
                                 "s3:DeleteObjectVersion"
-                            ], 
-                            "Effect": "Allow", 
+                            ],
+                            "Effect": "Allow",
                             "Resource": [
                                 {
                                     "Fn::Sub": [
-                                        "arn:aws:s3:::${Bucket}/*", 
+                                        "arn:aws:s3:::${Bucket}/*",
                                         {
                                             "Bucket": {
                                                 "Ref": "Simple"
                                             }
                                         }
                                     ]
-                                }, 
+                                },
                                 {
                                     "Fn::Sub": [
-                                        "arn:aws:s3:::${Bucket}/*", 
+                                        "arn:aws:s3:::${Bucket}/*",
                                         {
                                             "Bucket": {
                                                 "Ref": "Cycle"
@@ -216,17 +216,17 @@
                             ]
                         }
                     ]
-                }, 
+                },
                 "PolicyName": {
                     "Fn::Sub": "${AWS::StackName}ReadWritePolicy"
-                }, 
+                },
                 "Roles": [
-                    "Role3", 
+                    "Role3",
                     "Role4"
                 ]
-            }, 
+            },
             "Type": "AWS::IAM::Policy"
-        }, 
+        },
         "Simple": {
             "Type": "AWS::S3::Bucket"
         }

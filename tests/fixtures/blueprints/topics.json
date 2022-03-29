@@ -4,46 +4,46 @@
             "Value": {
                 "Ref": "Example"
             }
-        }, 
+        },
         "ExampleName": {
             "Value": {
                 "Fn::GetAtt": [
-                    "Example", 
+                    "Example",
                     "TopicName"
                 ]
             }
-        }, 
+        },
         "WithoutSubscriptionArn": {
             "Value": {
                 "Ref": "WithoutSubscription"
             }
-        }, 
+        },
         "WithoutSubscriptionName": {
             "Value": {
                 "Fn::GetAtt": [
-                    "WithoutSubscription", 
+                    "WithoutSubscription",
                     "TopicName"
                 ]
             }
         }
-    }, 
+    },
     "Resources": {
         "Example": {
             "Properties": {
-                "DisplayName": "ExampleTopic", 
+                "DisplayName": "ExampleTopic",
                 "Subscription": [
                     {
-                        "Endpoint": "arn:aws:sqs:us-east-1:123456788901:example-queue", 
+                        "Endpoint": "arn:aws:sqs:us-east-1:123456788901:example-queue",
                         "Protocol": "sqs"
-                    }, 
+                    },
                     {
-                        "Endpoint": "postmaster@example.com", 
+                        "Endpoint": "postmaster@example.com",
                         "Protocol": "email"
                     }
                 ]
-            }, 
+            },
             "Type": "AWS::SNS::Topic"
-        }, 
+        },
         "ExampleSubPolicy": {
             "Properties": {
                 "PolicyDocument": {
@@ -51,32 +51,32 @@
                         {
                             "Action": [
                                 "sqs:SendMessage"
-                            ], 
+                            ],
                             "Condition": {
                                 "ArnEquals": {
                                     "aws:SourceArn": {
                                         "Ref": "Example"
                                     }
                                 }
-                            }, 
-                            "Effect": "Allow", 
-                            "Principal": "*", 
+                            },
+                            "Effect": "Allow",
+                            "Principal": "*",
                             "Resource": [
                                 "arn:aws:sqs:us-east-1:123456788901:example-queue"
                             ]
                         }
                     ]
-                }, 
+                },
                 "Queues": [
                     "https://sqs.us-east-1.amazonaws.com/123456788901/example-queue"
                 ]
-            }, 
+            },
             "Type": "AWS::SQS::QueuePolicy"
-        }, 
+        },
         "WithoutSubscription": {
             "Properties": {
                 "DisplayName": "SampleTopicWithoutSub"
-            }, 
+            },
             "Type": "AWS::SNS::Topic"
         }
     }

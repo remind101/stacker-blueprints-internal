@@ -18,7 +18,7 @@ class TestIamRolesCommon(BlueprintTestCase):
         })
 
     def generate_variables(self, variable_dict=None):
-        return [Variable(k, v) for k, v in self.common_variables.items()]
+        return [Variable(k, v) for k, v in list(self.common_variables.items())]
 
     def create_blueprint(self, name, class_name):
         class TestRole(class_name):

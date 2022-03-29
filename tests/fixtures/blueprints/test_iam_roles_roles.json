@@ -4,34 +4,34 @@
             "Value": {
                 "Ref": "Policy"
             }
-        }, 
+        },
         "ec2roleRoleArn": {
             "Value": {
                 "Fn::GetAtt": [
-                    "ec2role", 
+                    "ec2role",
                     "Arn"
                 ]
             }
-        }, 
+        },
         "ec2roleRoleName": {
             "Value": {
                 "Ref": "ec2role"
             }
-        }, 
+        },
         "lambdaroleRoleArn": {
             "Value": {
                 "Fn::GetAtt": [
-                    "lambdarole", 
+                    "lambdarole",
                     "Arn"
                 ]
             }
-        }, 
+        },
         "lambdaroleRoleName": {
             "Value": {
                 "Ref": "lambdarole"
             }
         }
-    }, 
+    },
     "Resources": {
         "Policy": {
             "Properties": {
@@ -39,38 +39,38 @@
                     "Statement": [
                         {
                             "Action": [
-                                "logs:CreateLogGroup", 
-                                "logs:CreateLogStream", 
+                                "logs:CreateLogGroup",
+                                "logs:CreateLogStream",
                                 "logs:PutLogEvents"
-                            ], 
-                            "Effect": "Allow", 
+                            ],
+                            "Effect": "Allow",
                             "Resource": "arn:aws:logs:*:*:*"
-                        }, 
+                        },
                         {
                             "Action": [
                                 "ecr:GetAuthorizationToken"
-                            ], 
-                            "Effect": "Allow", 
+                            ],
+                            "Effect": "Allow",
                             "Resource": [
                                 "*"
                             ]
                         }
                     ]
-                }, 
+                },
                 "PolicyName": {
                     "Fn::Sub": "${AWS::StackName}-policy"
-                }, 
+                },
                 "Roles": [
                     {
                         "Ref": "ec2role"
-                    }, 
+                    },
                     {
                         "Ref": "lambdarole"
                     }
                 ]
-            }, 
+            },
             "Type": "AWS::IAM::Policy"
-        }, 
+        },
         "ec2role": {
             "Properties": {
                 "AssumeRolePolicyDocument": {
@@ -78,20 +78,20 @@
                         {
                             "Action": [
                                 "sts:AssumeRole"
-                            ], 
-                            "Effect": "Allow", 
+                            ],
+                            "Effect": "Allow",
                             "Principal": {
                                 "Service": [
                                     "ec2.amazonaws.com"
                                 ]
                             }
                         }
-                    ], 
+                    ],
                     "Version": "2012-10-17"
                 }
-            }, 
+            },
             "Type": "AWS::IAM::Role"
-        }, 
+        },
         "lambdarole": {
             "Properties": {
                 "AssumeRolePolicyDocument": {
@@ -99,18 +99,18 @@
                         {
                             "Action": [
                                 "sts:AssumeRole"
-                            ], 
-                            "Effect": "Allow", 
+                            ],
+                            "Effect": "Allow",
                             "Principal": {
                                 "Service": [
                                     "lambda.amazonaws.com"
                                 ]
                             }
                         }
-                    ], 
+                    ],
                     "Version": "2012-10-17"
                 }
-            }, 
+            },
             "Type": "AWS::IAM::Role"
         }
     }

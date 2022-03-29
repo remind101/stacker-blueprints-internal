@@ -17,7 +17,7 @@ build: .build
 	@touch .build
 
 test: .build stacker_blueprints tests
-	@$(docker_run) python setup.py test
+	@$(docker_run) sh -c 'python setup.py develop && pytest'
 
 .PHONY: shell
 shell: .build

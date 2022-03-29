@@ -4,22 +4,22 @@
             "Value": {
                 "Ref": "Simple"
             }
-        }, 
+        },
         "SimpleId": {
             "Value": {
                 "Ref": "Simple"
             }
         }
-    }, 
+    },
     "Resources": {
         "Simple": {
             "Properties": {
-                "DomainName": "blog.example.com", 
+                "DomainName": "blog.example.com",
                 "SubjectAlternativeNames": [
-                    "www.example.com", 
+                    "www.example.com",
                     "help.example.com"
                 ]
-            }, 
+            },
             "Type": "AWS::CertificateManager::Certificate"
         }
     }

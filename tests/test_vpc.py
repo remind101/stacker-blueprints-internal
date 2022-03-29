@@ -27,7 +27,7 @@ class TestVPC2(BlueprintTestCase):
         variable_dict = variable_dict or {}
         self.common_variables.update(variable_dict)
 
-        return [Variable(k, v) for k, v in self.common_variables.items()]
+        return [Variable(k, v) for k, v in list(self.common_variables.items())]
 
     def test_vpc2_without_internal_zone(self):
         bp = self.create_blueprint("test_vpc2_without_internal_zone")
@@ -36,7 +36,7 @@ class TestVPC2(BlueprintTestCase):
         bp.create_template()
         self.assertRenderedBlueprint(bp)
         self.assertIn(VPC_NAME, bp.template.resources)
-        for r in bp.template.resources.values():
+        for r in list(bp.template.resources.values()):
             self.assertNotIsInstance(r, HostedZone)
 
     def test_vpc2_with_internal_zone(self):
@@ -55,6 +55,6 @@ class TestVPC2(BlueprintTestCase):
         self.assertRenderedBlueprint(bp)
         self.assertIn(VPC_NAME, bp.template.resources)
         zone = bp.template.resources["MyInternalZone"]
-        self.assertEquals(zone.VPCs[0].VPCId.data["Ref"], VPC_NAME)
+        self.assertEqual(zone.VPCs[0].VPCId.data["Ref"], VPC_NAME)
         dhcp = bp.template.resources["DHCPOptions"]
-        self.assertEquals(dhcp.DomainName, "internal.")
+        self.assertEqual(dhcp.DomainName, "internal.")

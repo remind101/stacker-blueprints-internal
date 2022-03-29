@@ -69,7 +69,7 @@ class Buckets(Blueprint):
 
         self.bucket_ids = []
 
-        for title, attrs in variables["Buckets"].items():
+        for title, attrs in list(variables["Buckets"].items()):
             bucket_id = Ref(title)
             t.add_resource(s3.Bucket.from_dict(title, attrs))
             t.add_output(Output(title + "BucketId", Value=bucket_id))

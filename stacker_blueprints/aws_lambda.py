@@ -447,13 +447,13 @@ class FunctionScheduler(Blueprint):
         rule = self.template.add_resource(troposphere_events_rule)
 
         # allow cloudwatch to invoke on any of the given lambda targets.
-        for event_rule_target_id, aws_lambda_arn in aws_lambda_arns.items():
+        for event_rule_target_id, lambda_arn in list(aws_lambda_arns.items()):
             self.template.add_resource(
                 awslambda.Permission(
                     "PermToInvokeFunctionFor{}".format(event_rule_target_id),
                     Principal="events.amazonaws.com",
                     Action="lambda:InvokeFunction",
-                    FunctionName=aws_lambda_arn,
+                    FunctionName=lambda_arn,
                     SourceArn=rule.GetAtt("Arn")
                 )
             )

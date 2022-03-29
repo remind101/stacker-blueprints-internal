@@ -138,7 +138,7 @@ class BaseECSTask(Blueprint):
 
         env_list = []
         # Sort it first to avoid dict sort issues on different machines
-        sorted_env = sorted(env_dict.items(), key=lambda pair: pair[0])
+        sorted_env = sorted(list(env_dict.items()), key=lambda pair: pair[0])
         for k, v in sorted_env:
             env_list.append(ecs.Environment(Name=str(k), Value=str(v)))
 

@@ -201,7 +201,7 @@ class VPC(Blueprint):
 
         self.create_nat_security_groups()
         subnets = {'public': [], 'private': []}
-        net_types = subnets.keys()
+        net_types = list(subnets.keys())
         route_table_ids = []
         zones = []
         for i in range(variables["AZCount"]):

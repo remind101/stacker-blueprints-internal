@@ -32,7 +32,7 @@ class TestBlueprint(BlueprintTestCase):
         return Function(name, self.ctx)
 
     def generate_variables(self):
-        return [Variable(k, v) for k, v in self.common_variables.items()]
+        return [Variable(k, v) for k, v in list(self.common_variables.items())]
 
     def test_create_template_base(self):
         blueprint = self.create_blueprint('test_aws_lambda_Function')

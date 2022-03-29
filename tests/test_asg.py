@@ -33,7 +33,7 @@ class TestBlueprint(BlueprintTestCase):
         return FlexibleAutoScalingGroup(name, self.ctx)
 
     def generate_variables(self):
-        return [Variable(k, v) for k, v in self.common_variables.items()]
+        return [Variable(k, v) for k, v in list(self.common_variables.items())]
 
     def test_create_template_provided_launch_config_name(self):
         blueprint = self.create_blueprint(

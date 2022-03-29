@@ -3,35 +3,35 @@
         "InstanceProfileArn": {
             "Value": {
                 "Fn::GetAtt": [
-                    "RoleInstanceProfile", 
+                    "RoleInstanceProfile",
                     "Arn"
                 ]
             }
-        }, 
+        },
         "InstanceProfileName": {
             "Value": {
                 "Ref": "RoleInstanceProfile"
             }
-        }, 
+        },
         "PolicyName": {
             "Value": {
                 "Ref": "RolePolicy"
             }
-        }, 
+        },
         "RoleRoleArn": {
             "Value": {
                 "Fn::GetAtt": [
-                    "Role", 
+                    "Role",
                     "Arn"
                 ]
             }
-        }, 
+        },
         "RoleRoleName": {
             "Value": {
                 "Ref": "Role"
             }
         }
-    }, 
+    },
     "Resources": {
         "Role": {
             "Properties": {
@@ -40,73 +40,73 @@
                         {
                             "Action": [
                                 "sts:AssumeRole"
-                            ], 
-                            "Effect": "Allow", 
+                            ],
+                            "Effect": "Allow",
                             "Principal": {
                                 "Service": [
                                     "ec2.amazonaws.com"
                                 ]
                             }
                         }
-                    ], 
+                    ],
                     "Version": "2012-10-17"
-                }, 
+                },
                 "ManagedPolicyArns": [
                     "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
-                ], 
+                ],
                 "Path": "/"
-            }, 
+            },
             "Type": "AWS::IAM::Role"
-        }, 
+        },
         "RoleInstanceProfile": {
             "Properties": {
-                "Path": "/", 
+                "Path": "/",
                 "Roles": [
                     {
                         "Ref": "Role"
                     }
                 ]
-            }, 
+            },
             "Type": "AWS::IAM::InstanceProfile"
-        }, 
+        },
         "RolePolicy": {
             "Properties": {
                 "PolicyDocument": {
                     "Statement": [
                         {
                             "Action": [
-                                "logs:CreateLogGroup", 
-                                "logs:CreateLogStream", 
+                                "logs:CreateLogGroup",
+                                "logs:CreateLogStream",
                                 "logs:PutLogEvents"
-                            ], 
-                            "Effect": "Allow", 
+                            ],
+                            "Effect": "Allow",
                             "Resource": "arn:aws:logs:*:*:*"
-                        }, 
+                        },
                         {
                             "Action": [
                                 "ecr:GetAuthorizationToken"
-                            ], 
-                            "Effect": "Allow", 
+                            ],
+                            "Effect": "Allow",
                             "Resource": [
                                 "*"
                             ]
                         }
                     ]
-                }, 
+                },
                 "PolicyName": {
                     "Fn::Sub": [
-                        "${AWS::StackName}-${Name}-policy", 
+                        "${AWS::StackName}-${Name}-policy",
                         {
                             "Name": "Role"
                         }
                     ]
-                }, 
+                },
                 "Roles": [
                     {
                         "Ref": "Role"
                     }
                 ]
-            }, 
+            },
             "Type": "AWS::IAM::Policy"
         }
     }

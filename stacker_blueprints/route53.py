@@ -69,7 +69,7 @@ def get_record_set_md5(rs_name, rs_type):
     rs_type = rs_type.upper()
     # Make A and CNAME records hash to same sum to support updates.
     rs_type = "ACNAME" if rs_type in ["A", "CNAME"] else rs_type
-    return md5(rs_name + rs_type).hexdigest()
+    return md5((rs_name + rs_type).encode('utf-8')).hexdigest()
 
 
 def add_hosted_zone_id_if_missing(record_set, hosted_zone_id):
@@ -169,7 +169,7 @@ class DNSRecords(Blueprint):
         """Accept list of record_set_group dicts.
         Return list of record_set_group objects."""
         record_set_groups = []
-        for name, group in record_set_group_dicts.items():
+        for name, group in list(record_set_group_dicts.items()):
             # pop removes the 'Enabled' key and tests if True.
             if group.pop('Enabled', True):
                 record_set_groups.append(

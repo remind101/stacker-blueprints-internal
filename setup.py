@@ -4,16 +4,17 @@ from setuptools import setup, find_packages
 src_dir = os.path.dirname(__file__)
 
 install_requires = [
-    "python-dateutil<3.0.0",
-    "stacker>=1.7.0",
+    "pytest",
     "troposphere>=2.3.2",
-    "awacs>=0.8.2",
+    "schematics>=2.1.1",
+    "stacker @ git+https://github.com/Lowercases/stacker@yamldir-pytest#egg=stacker",
 ]
 
 tests_require = [
-    "nose",
-    "mock~=2.0.0",
-    "stacker>=1.4.0",
+    "cfn_flip (==1.0.2)",
+    "mock (==2.0.0)",
+    "schematics (==2.2.1)",
+    "stacker (>=1.4.0)",
 ]
 
 
@@ -35,6 +36,8 @@ if __name__ == "__main__":
         long_description=read("README.rst"),
         packages=find_packages(),
         install_requires=install_requires,
-        tests_require=tests_require,
-        test_suite="nose.collector",
+        dependency_links=[
+            'https://github.com/Lowercases/stacker/archive/refs/tags/python3.tar.gz#egg=stacker-python3',
+        ],
+        requires=tests_require,
     )

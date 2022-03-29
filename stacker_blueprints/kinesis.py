@@ -8,7 +8,7 @@ from troposphere import (
     kinesis,
 )
 
-from policies import (
+from .policies import (
     kinesis_stream_arn,
     read_only_kinesis_stream_policy,
     read_write_kinesis_stream_policy,

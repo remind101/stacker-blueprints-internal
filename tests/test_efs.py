@@ -45,7 +45,7 @@ class TestElasticFileSystem(BlueprintTestCase):
         blueprint = ElasticFileSystem('test_efs_ElasticFileSystem', self.ctx)
         variables = EFS_VARIABLES
         blueprint.resolve_variables(
-            [Variable(k, v) for k, v in variables.items()])
+            [Variable(k, v) for k, v in list(variables.items())])
         blueprint.create_template()
         self.assertRenderedBlueprint(blueprint)
 
@@ -57,7 +57,7 @@ class TestElasticFileSystem(BlueprintTestCase):
 
         with self.assertRaises(ValidatorError):
             blueprint.resolve_variables(
-                [Variable(k, v) for k, v in variables.items()])
+                [Variable(k, v) for k, v in list(variables.items())])
 
     def test_validate_security_group_count_exceeded(self):
         blueprint = ElasticFileSystem('test_efs_ElasticFileSystem', self.ctx)
@@ -66,7 +66,7 @@ class TestElasticFileSystem(BlueprintTestCase):
 
         with self.assertRaises(ValidatorError):
             blueprint.resolve_variables(
-                [Variable(k, v) for k, v in variables.items()])
+                [Variable(k, v) for k, v in list(variables.items())])
 
     def test_validate_subnets_empty(self):
         blueprint = ElasticFileSystem('test_efs_ElasticFileSystem', self.ctx)
@@ -75,7 +75,7 @@ class TestElasticFileSystem(BlueprintTestCase):
 
         with self.assertRaises(ValidatorError):
             blueprint.resolve_variables(
-                [Variable(k, v) for k, v in variables.items()])
+                [Variable(k, v) for k, v in list(variables.items())])
 
     def test_validate_subnets_ip_addresses_unmatching(self):
         blueprint = ElasticFileSystem('test_efs_ElasticFileSystem', self.ctx)
@@ -84,7 +84,7 @@ class TestElasticFileSystem(BlueprintTestCase):
 
         with self.assertRaises(ValidatorError):
             blueprint.resolve_variables(
-                [Variable(k, v) for k, v in variables.items()])
+                [Variable(k, v) for k, v in list(variables.items())])
 
 
 if __name__ == '__main__':

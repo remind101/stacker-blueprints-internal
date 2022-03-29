@@ -4,48 +4,48 @@
             "Value": {
                 "Ref": "UserTable"
             }
-        }, 
+        },
         "UserTableStreamArn": {
             "Value": {
                 "Fn::GetAtt": [
-                    "UserTable", 
+                    "UserTable",
                     "StreamArn"
                 ]
             }
         }
-    }, 
+    },
     "Resources": {
         "UserTable": {
             "Properties": {
                 "AttributeDefinitions": [
                     {
-                        "AttributeName": "id", 
+                        "AttributeName": "id",
                         "AttributeType": "S"
-                    }, 
+                    },
                     {
-                        "AttributeName": "name", 
+                        "AttributeName": "name",
                         "AttributeType": "S"
                     }
-                ], 
+                ],
                 "KeySchema": [
                     {
-                        "AttributeName": "id", 
+                        "AttributeName": "id",
                         "KeyType": "HASH"
-                    }, 
+                    },
                     {
-                        "AttributeName": "name", 
+                        "AttributeName": "name",
                         "KeyType": "RANGE"
                     }
-                ], 
+                ],
                 "ProvisionedThroughput": {
-                    "ReadCapacityUnits": 5, 
+                    "ReadCapacityUnits": 5,
                     "WriteCapacityUnits": 5
-                }, 
+                },
                 "StreamSpecification": {
                     "StreamViewType": "ALL"
-                }, 
+                },
                 "TableName": "test-user-table"
-            }, 
+            },
             "Type": "AWS::DynamoDB::Table"
         }
     }
