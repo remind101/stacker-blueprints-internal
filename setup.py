@@ -7,7 +7,7 @@ install_requires = [
     "pytest",
     "troposphere>=2.3.2",
     "schematics>=2.1.1",
-    "stacker @ git+https://github.com/remind101/stacker-internal.git",
+    "stacker @ https://github.com/remind101/stacker-internal/archive/main.zip",
 ]
 
 tests_require = [
