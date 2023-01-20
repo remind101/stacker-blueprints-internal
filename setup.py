@@ -7,7 +7,7 @@ install_requires = [
     "pytest",
     "troposphere>=2.3.2",
     "schematics>=2.1.1",
-    "stacker @ git+https://github.com/Lowercases/stacker@yamldir-pytest#egg=stacker",
+    "stacker @ git+https://github.com/remind101/stacker-internal.git",
 ]
 
 tests_require = [
@@ -36,8 +36,8 @@ if __name__ == "__main__":
         long_description=read("README.rst"),
         packages=find_packages(),
         install_requires=install_requires,
-        dependency_links=[
-            'https://github.com/Lowercases/stacker/archive/refs/tags/python3.tar.gz#egg=stacker-python3',
-        ],
+        # dependency_links=[
+        #     'https://github.com/Lowercases/stacker/archive/refs/tags/python3.tar.gz#egg=stacker-python3',
+        # ],
         requires=tests_require,
     )
